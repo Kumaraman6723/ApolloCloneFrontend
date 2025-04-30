@@ -1,6 +1,4 @@
-Got it! Here’s the updated **README.md** with headers (`#`, `##`, etc.) for a clean, organized structure:
 
----
 
 # Apollo Clone Frontend
 
