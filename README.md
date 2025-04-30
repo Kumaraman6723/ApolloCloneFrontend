@@ -1,64 +1,122 @@
+Apollo Clone Frontend
+This is the frontend for the Apollo 24|7 destination page for General Physicians, built using Next.js and TypeScript. It features a fully responsive layout with a doctor listing and filtering system, powered by backend API calls.
 
-How Apollo Clone Frontend Works
-This project is a frontend-only clone of the Apollo 24|7 General Physicians destination page.
-It is built using Next.js and TypeScript.
+🚀 How It Works
+1. Initial Page Load
+On page load (/pages/index.tsx), the app sends a GET request to fetch a paginated list of doctors from the backend API:
 
-Main Flow:
-Landing Page (pages/index.tsx):
+ts
+Copy
+Edit
+fetch(`${API_BASE_URL}/list-doctor-with-filter?page=1&limit=10`);
+The doctors are displayed in a card layout with details like name, specialization, consultation fee, rating, and location.
 
-When the user opens the website, they land on the destination page.
-
-It shows a list of doctors — like name, specialization, fees, rating, and location.
-
-Fetching Doctors:
-
-On page load, a GET request is made to the backend API:
-list-doctor-with-filter
-
-It fetches doctors with optional filters like:
+2. Doctor Filtering
+Users can filter doctors by:
 
 Location
 
-Rating
+Consultation Fee
 
-Consultation Fees
+Rating
 
 Availability
 
-The fetched list is displayed in a nice card/grid format.
+Example API call to filter doctors by location and rating:
 
-Filters:
+ts
+Copy
+Edit
+fetch(`${API_BASE_URL}/list-doctor-with-filter?location=delhi&rating=4`);
+The UI automatically updates to show the filtered results.
 
-Users can apply filters (example: filter by city, or doctors with 4+ star rating).
+3. Pagination
+The list of doctors is paginated (e.g., showing 10 doctors per page).
 
-When a filter is selected:
+The frontend keeps track of the current page number and updates the list when the user clicks Next or Previous:
 
-The frontend makes another API call with those filter query params.
+ts
+Copy
+Edit
+fetch(`${API_BASE_URL}/list-doctor-with-filter?page=${currentPage}&limit=10`);
+4. API Integration
+Doctor data is fetched from the backend through API calls defined in .env.local:
 
-The list updates based on the filter response.
+bash
+Copy
+Edit
+NEXT_PUBLIC_API_BASE_URL=http://localhost:5000/api
+Example fetch for doctor data:
 
-Pagination:
+ts
+Copy
+Edit
+const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/list-doctor-with-filter?page=1`);
+const data = await res.json();
+5. SEO Support
+The page is optimized for SEO using Next.js <Head> tags. For example:
 
-Only a few doctors are shown per page (for example, 10 per page).
+tsx
+Copy
+Edit
+<Head>
+  <title>General Physicians | Apollo Clone</title>
+  <meta name="description" content="Find the best general physicians in your area." />
+</Head>
+📁 Project Structure
+php
+Copy
+Edit
+ApolloCloneFrontend/
+│
+├── components/           # Reusable UI components like DoctorCard, Filters, Pagination
+├── pages/                # Next.js pages
+│   └── index.tsx         # Home/Destination page with data fetching
+├── public/               # Static assets
+├── styles/               # Global and modular CSS
+├── utils/                # API calls and helper functions
+├── types/                # TypeScript types/interfaces
+├── .env.local            # Environment variables
+└── README.md             # Project documentation
+🛠️ Technologies Used
+Next.js for SSR (Server-Side Rendering) and SEO optimization
 
-When the user clicks Next or Previous:
+TypeScript for type safety
 
-A new API call is triggered with the new page number.
+Tailwind CSS (or your preferred CSS framework) for responsive and flexible styling
 
-The doctor list updates accordingly.
+REST API for fetching doctor data from the backend
 
-SEO:
+💡 Features
+✅ Doctor Listings: Displays doctors with name, rating, fee, and location.
 
-The page uses Next.js Head tags (<Head>) for good off-page SEO.
+✅ Filters: Allows users to filter doctors by location, rating, and consultation fee.
 
-Meta title, meta description, and other SEO-friendly tags are added.
+✅ Pagination: Displays doctor data with pagination.
 
-TypeScript:
+✅ Responsive UI: Fully responsive design, mobile-friendly.
 
-The code uses TypeScript to define types for doctor data, API responses, and props, making it more reliable and easier to maintain.
+✅ SEO Optimization: Off-page SEO for better search engine ranking.
 
-Design:
-
-The UI is responsive (mobile and desktop friendly).
-
-It uses a CSS framework like TailwindCSS (or plain CSS Modules) to style the page cleanly.
+🏃‍♂️ Getting Started
+Clone the Repository
+bash
+Copy
+Edit
+git clone https://github.com/Kumaraman6723/ApolloCloneFrontend.git
+cd ApolloCloneFrontend
+Install Dependencies
+bash
+Copy
+Edit
+npm install
+# or
+yarn install
+Run Development Server
+bash
+Copy
+Edit
+npm run dev
+# or
+yarn dev
+Visit http://localhost:3000 in your browser.
